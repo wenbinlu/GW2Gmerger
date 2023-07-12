@@ -1,5 +1,5 @@
 # GW2Gmerger
-The codes calculate the probability of having a 2G GW merger between 'm' and 'M' after m receives a kick as a result of 1G merger (which created 'm').
+The codes calculate the probability of having a 2G GW merger between 'm' and 'M' after m receives a kick as a result of 1G merger (which created 'm'). Using the codes here, one should be able to reproduce the Figure 3 (the key results) of [this paper](https://ui.adsabs.harvard.edu/abs/2021MNRAS.500.1817L/abstract).
 
 After downloading the codes, the first step is to change data_dir in dir_info.py to where you want to store the data and files to be created by the codes.
 
