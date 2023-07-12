@@ -19,27 +19,30 @@ case_paras = [1, 15, 50]    # M [Msun], m [Msun], vk_mean [km/s]
 # ----
 
 # units: mass in Msun, length in AU, time in yr/2pi, G=1, speed in AU*2*pi/yr
-# initial condition for the outer orbit
+
+# specify the resolution
 Nlga, Nlgrp = 30, 30  # low (30, 30); medium (100, 100) ; high resolution (200, 200)
 
+# specify the parameter range
 amin, amax = 0.5, 100
+rpmin, rpmax = 0.3, amax        # below rp=0.1 AU, the triple may be unstable
+
+
 lgamin, lgamax = log10(amin), log10(amax)
 lga_arr = np.linspace(lgamin, lgamax, Nlga, endpoint=True)
-rpmin, rpmax = 0.3, amax        # below rp=0.1 AU, the triple is unstable
 lgrpmin, lgrpmax = log10(rpmin), log10(rpmax)
 lgrp_arr = np.linspace(lgrpmin, lgrpmax, Nlgrp, endpoint=True)
-
 eps_small = 1e-10   # very small floor number
 lgf_floor = log10(eps_small)
 
 M = case_paras[0]     # BH mass [Msun]
 m = case_paras[1]     # total mass for NS+NS [Msun]
 
-Nmu = 50    # using a linear grid in mu from -1 to mu_max
+Nmu = 50    # using a linear grid in mu from -1 to mu_max, 50 should be sufficient
 mu_min = -1.
 
 # the phi grid concentrates near phi=0 and phi=pi
-Nphi_half = 30
+Nphi_half = 30  # 30 should be sufficient
 dphi_half = pi/(Nphi_half*(Nphi_half+1))*(np.arange(Nphi_half)+1)
 dphi_arr = np.concatenate((dphi_half, np.flip(dphi_half)))
 phi_arr = np.cumsum(dphi_arr) - dphi_arr/2  # put at the middle of each bin
@@ -47,7 +50,7 @@ dParr_phi = dphi_arr/pi    # probability for each bin dP/dphi*dphi
 Nphi = 2*Nphi_half
 
 # the psi grid for orbital phase  (with slight concentration near psi=pi)
-Npsi = 50
+Npsi = 50  # 50 should be sufficient
 dpsi_min = 2*pi/(5*Npsi)    # dpsi_min = dpsi_max/4
 dpsi_arr = dpsi_min + 3*dpsi_min/(Npsi-1) * np.arange(Npsi)
 psi_arr = np.cumsum(dpsi_arr) - dpsi_arr/2  # put at the middle of each bin
